@@ -60,16 +60,13 @@ html,body{overflow-x:hidden}
 select.input{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%2366737C' stroke-width='2'/%3E%3C/svg%3E") no-repeat left 16px center;padding-left:40px;font-size:17px}
 textarea.input{height:auto;min-height:92px;padding:12px 16px;font-size:16px;line-height:1.6;resize:vertical}
 
-/* comb input for last 4 digits */
-.comb{position:relative;width:236px;max-width:100%}
-.comb input{width:100%;height:60px;border:0;background:transparent;direction:ltr;text-align:left;
-  font:600 26px/60px ui-monospace,"SF Mono",Menlo,Consolas,monospace;letter-spacing:38px;padding-left:19px;caret-color:var(--guard);
-  position:relative;z-index:2}
-.comb input:focus{outline:none}
-.comb .cells{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;direction:ltr;z-index:1}
-.comb .cells i{border:1.5px solid var(--line);background:#fff;border-radius:var(--r-md);transition:border-color .15s, box-shadow .15s}
-.comb.focus .cells i.cur{border-color:var(--guard);box-shadow:0 0 0 4px rgba(31,111,156,.14)}
-.comb.bad .cells i{border-color:var(--danger)}
+/* last 4 digits: four independent boxes, so alignment never depends on font metrics */
+.otp{display:flex;gap:10px;direction:ltr;justify-content:flex-end}
+.otp-i{width:56px;height:60px;flex:none;border:1.5px solid var(--line);background:#fff;border-radius:var(--r-md);text-align:center;padding:0;
+  font:600 26px/1 var(--ui);font-variant-numeric:tabular-nums;color:var(--ink);caret-color:var(--guard);transition:border-color .15s, box-shadow .15s;-webkit-appearance:none;appearance:none}
+.otp-i:focus{outline:none;border-color:var(--guard);box-shadow:0 0 0 4px rgba(31,111,156,.14)}
+.otp.bad .otp-i{border-color:var(--danger)}
+@media (max-width:340px){.otp{gap:8px}.otp-i{width:50px;height:56px;font-size:24px}}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 22px;border-radius:var(--r-md);border:0;
   font-weight:600;font-size:17px;cursor:pointer;transition:transform .08s, background .15s, opacity .15s;text-decoration:none;-webkit-tap-highlight-color:transparent}
@@ -168,8 +165,8 @@ textarea.input{height:auto;min-height:92px;padding:12px 16px;font-size:16px;line
 .iban{display:flex;align-items:stretch;direction:ltr;border:1.5px solid var(--line);border-radius:var(--r-md);background:#fff;overflow:hidden;transition:border-color .15s, box-shadow .15s}
 .iban:focus-within{border-color:var(--guard);box-shadow:0 0 0 4px rgba(31,111,156,.14)}
 .iban.bad{border-color:var(--danger)}
-.iban .pre{display:flex;align-items:center;padding:0 12px;background:var(--line-soft);font-weight:700;letter-spacing:1px;color:var(--ink-2);font-size:17px}
-.iban input{border:0;flex:1;height:56px;padding:0 10px;font-size:16px;letter-spacing:.2px;font-variant-numeric:tabular-nums;min-width:0;background:transparent}
+.iban .pre{display:flex;align-items:center;padding:0 9px;background:var(--line-soft);font-weight:700;letter-spacing:1px;color:var(--ink-2);font-size:17px}
+.iban input{border:0;flex:1;height:56px;padding:0 8px;font-size:clamp(13px,4vw,16px);letter-spacing:0;font-variant-numeric:tabular-nums;min-width:0;background:transparent}
 .iban input:focus{outline:none}
 .bankline{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:14px;min-height:22px}
 .bankline.ok{color:var(--guard-deep);font-weight:600}
@@ -177,6 +174,7 @@ textarea.input{height:auto;min-height:92px;padding:12px 16px;font-size:16px;line
 .seg button{border:0;background:transparent;padding:7px 18px;border-radius:999px;font-size:14.5px;cursor:pointer;color:var(--ink-2)}
 .seg button[aria-pressed="true"]{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(16,32,47,.12)}
 .dob{display:grid;grid-template-columns:.8fr 1.4fr 1fr;gap:8px}
+@media (max-width:420px){.dob{grid-template-columns:1fr 1fr}.dob [data-k="dob_m"]{grid-column:1/-1;order:-1}}
 .dob select{padding-left:30px;background-position:left 10px center;font-size:16px;padding-inline-start:12px}
 .stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:#fff}
 .stepper button{width:54px;height:52px;border:0;background:#fff;font-size:24px;cursor:pointer;color:var(--guard)}
@@ -215,6 +213,8 @@ textarea.input{height:auto;min-height:92px;padding:12px 16px;font-size:16px;line
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   .draw path{stroke-dashoffset:0}
 }
+@media (max-width:360px){.panel{padding:16px 13px 4px}}
+@media (max-width:340px){.wrap{padding-left:12px;padding-right:12px}.two{grid-template-columns:1fr;gap:0}.doc-body{padding:24px 16px}.term{grid-template-columns:96px 1fr}}
 @media (min-width:600px){
   .wrap{padding-top:40px}
   .doc-body{padding:30px 34px 32px}
@@ -222,18 +222,20 @@ textarea.input{height:auto;min-height:92px;padding:12px 16px;font-size:16px;line
 }
 </style>
 <style>
-.demo-strip{position:relative;z-index:5;background:#0D2B4B;color:#E6EEF6;font:500 13.5px/1.6 "IBM Plex Sans Arabic",system-ui,sans-serif}
-.demo-strip .demo-in{max-width:1280px;margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
-.demo-strip b{background:#C9A24B;color:#0D2B4B;border-radius:999px;padding:1px 10px;font-weight:700;font-size:12.5px}
-.demo-strip bdi{font-weight:700;color:#fff;letter-spacing:.5px}
-.demo-strip .demo-acts{display:flex;gap:8px;margin-inline-start:auto;flex-wrap:wrap}
-.demo-strip button,.demo-strip a{font:inherit;font-size:12.5px;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:3px 11px;cursor:pointer;text-decoration:none}
+.demo-strip{position:relative;z-index:5;background:#0D2B4B;color:#E6EEF6;font:500 13px/1.5 "IBM Plex Sans Arabic",system-ui,sans-serif}
+.demo-strip .demo-in{max-width:1280px;margin:0 auto;padding:7px 12px;display:flex;gap:6px;align-items:center;flex-wrap:nowrap}
+.demo-strip .chip{background:#C9A24B;color:#0D2B4B;border-radius:999px;padding:2px 10px;font-weight:700;font-size:12px;white-space:nowrap}
+.demo-strip .demo-acts{display:flex;gap:6px;margin-inline-start:auto;flex-wrap:nowrap}
+.demo-strip button,.demo-strip a{font:inherit;font-size:12.5px;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:7px;height:30px;padding:0 10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .demo-strip button:hover,.demo-strip a:hover{background:rgba(255,255,255,.2)}
+.demo-strip .ico{width:30px;padding:0;justify-content:center}
+.demo-note{margin:14px 0 0;padding:10px 12px;border-radius:10px;background:#F7EFD9;color:#5E4512;font:500 13.5px/1.7 "IBM Plex Sans Arabic",system-ui,sans-serif}
+.demo-note bdi{font-weight:700;letter-spacing:.5px;color:#0D2B4B}
 </style>
 </head>
 <body class="on-gate">
-<div class="demo-strip" role="note"><div class="demo-in"><b>نسخة تجريبية</b><span>بيانات وهمية للعرض. جرّب الدخول بالهوية <bdi>1000000001</bdi> وآخر 4 أرقام <bdi>1234</bdi>، أو <bdi>1000000002</bdi> مع <bdi>5678</bdi>.</span>
-<span class="demo-acts"><button type="button" id="demoFill">تعبئة الدخول</button><a href="admin.html">لوحة الإدارة</a><button type="button" id="demoReset">إعادة ضبط التجربة</button></span></div></div>
+<div class="demo-strip" role="note"><div class="demo-in"><span class="chip">نسخة تجريبية</span>
+<span class="demo-acts"><button type="button" id="demoFill">تعبئة الدخول</button><a href="admin.html">لوحة الإدارة</a><button type="button" class="ico" id="demoReset" aria-label="إعادة ضبط التجربة" title="إعادة ضبط التجربة"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10a6.5 6.5 0 1 0 2-4.7M3.5 3.5v3.8h3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></div></div>
 <svg class="gate-art" id="gateArt" viewBox="-115 -115 230 230" aria-hidden="true"></svg>
 <main class="wrap" id="app" aria-live="polite">
 
@@ -252,14 +254,18 @@ textarea.input{height:auto;min-height:92px;padding:12px 16px;font-size:16px;line
         <input class="input num" id="nid" name="nid" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="1xxxxxxxxx" required>
       </div>
       <div class="field">
-        <label for="l4">آخر 4 أرقام من الجوال</label>
-        <div class="comb" id="comb"><div class="cells" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-          <input id="l4" name="l4" inputmode="numeric" autocomplete="off" maxlength="4" aria-describedby="l4hint" required></div>
+        <span class="lbl" id="l4lbl">آخر 4 أرقام من الجوال</span>
+        <div class="otp" id="otp" role="group" aria-labelledby="l4lbl" aria-describedby="l4hint">
+          <input class="otp-i" id="l4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" aria-label="الرقم الأول">
+          <input class="otp-i" inputmode="numeric" pattern="[0-9]*" autocomplete="off" aria-label="الرقم الثاني">
+          <input class="otp-i" inputmode="numeric" pattern="[0-9]*" autocomplete="off" aria-label="الرقم الثالث">
+          <input class="otp-i" inputmode="numeric" pattern="[0-9]*" autocomplete="off" aria-label="الرقم الرابع">
+        </div>
         <span class="hint" id="l4hint">مثال: إذا كان جوالك 0551234567 فأدخل 4567</span>
       </div>
       <button class="btn btn-primary" id="gateBtn" type="submit">عرض العرض الوظيفي</button>
     </form>
-    <div class="privacy"><svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><path d="M3 7V5a4 4 0 1 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="1" y="7" width="12" height="8" rx="2" fill="currentColor"/></svg>اتصال مشفّر، ولا تظهر بياناتك إلا لك ولإدارة الموارد البشرية.</div>
+    <p class="demo-note">بيانات وهمية للتجربة: الهوية <bdi>1000000001</bdi> وآخر 4 أرقام <bdi>1234</bdi>. ولتجربة الاعتذار: <bdi>1000000002</bdi> مع <bdi>5678</bdi>.</p><div class="privacy"><svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><path d="M3 7V5a4 4 0 1 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="1" y="7" width="12" height="8" rx="2" fill="currentColor"/></svg>اتصال مشفّر، ولا تظهر بياناتك إلا لك ولإدارة الموارد البشرية.</div>
     <div class="help" id="gateHelp"></div>
   </section>
 
@@ -644,18 +650,39 @@ const hrLine = phone => phone ? `إذا تغيّر رقم جوالك أو واج
 })();
 $("#gateHelp").innerHTML = hrLine(null);
 
-const nid = $("#nid"), l4 = $("#l4"), comb = $("#comb");
-nid.addEventListener("input", () => { nid.value = digits(nid.value).slice(0, 10); nid.classList.remove("bad"); if (nid.value.length === 10) l4.focus(); });
-function paintComb() { const n = l4.value.length; comb.querySelectorAll(".cells i").forEach((c, i) => c.classList.toggle("cur", i === Math.min(n, 3))); }
-l4.addEventListener("input", () => { l4.value = digits(l4.value).slice(0, 4); comb.classList.remove("bad"); paintComb(); });
-l4.addEventListener("focus", () => { comb.classList.add("focus"); paintComb(); });
-l4.addEventListener("blur", () => comb.classList.remove("focus"));
+const nid = $("#nid"), otpBox = $("#otp"), otp = [...document.querySelectorAll(".otp-i")];
+const getL4 = () => otp.map(i => digits(i.value)).join("");
+function setL4(v, from = 0) {
+  const d = digits(v).split(""); let i = from;
+  for (const ch of d) { if (i > 3) break; otp[i].value = ch; i++; }
+  otpBox.classList.remove("bad");
+  const nextEmpty = otp.findIndex(x => !x.value); (otp[nextEmpty === -1 ? 3 : nextEmpty]).focus();
+}
+window.fillGate = (id, last4) => { nid.value = id; otp.forEach(x => x.value = ""); setL4(last4); };
+nid.addEventListener("input", () => { nid.value = digits(nid.value).slice(0, 10); nid.classList.remove("bad"); if (nid.value.length === 10 && !getL4()) otp[0].focus(); });
+otp.forEach((box, i) => {
+  box.addEventListener("input", e => {
+    const typed = digits(e.data || "");
+    if (typed.length === 1 && e.inputType === "insertText") { box.value = typed; }      // one keystroke: this box holds the new digit
+    else { const d = digits(box.value); if (d.length > 1) { box.value = ""; setL4(d, i); return; } box.value = d; }  // paste, autofill, suggestions
+    otpBox.classList.remove("bad");
+    if (box.value && i < 3) otp[i + 1].focus();
+  });
+  box.addEventListener("keydown", e => {
+    if (e.key === "Backspace" && !box.value && i > 0) { e.preventDefault(); otp[i - 1].value = ""; otp[i - 1].focus(); }
+    else if (e.key === "ArrowLeft" && i > 0) { e.preventDefault(); otp[i - 1].focus(); }
+    else if (e.key === "ArrowRight" && i < 3) { e.preventDefault(); otp[i + 1].focus(); }
+    else if (e.key === "Enter") { e.preventDefault(); $("#gateForm").requestSubmit(); }
+  });
+  box.addEventListener("focus", () => box.select());
+  box.addEventListener("paste", e => { const t = (e.clipboardData || window.clipboardData)?.getData("text"); if (t) { e.preventDefault(); setL4(t, i); } });
+});
 
 $("#gateForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const id = digits(nid.value), last = digits(l4.value), box = $("#gateAlert"); box.innerHTML = "";
+  const id = digits(nid.value), last = getL4(), box = $("#gateAlert"); box.innerHTML = "";
   if (!/^[12]\d{9}$/.test(id)) { nid.classList.add("bad"); box.innerHTML = alertBox("err", "رقم الهوية يتكون من 10 أرقام ويبدأ بالرقم 1 أو 2."); nid.focus(); return; }
-  if (!/^\d{4}$/.test(last)) { comb.classList.add("bad"); box.innerHTML = alertBox("err", "أدخل آخر 4 أرقام من رقم جوالك."); l4.focus(); return; }
+  if (!/^\d{4}$/.test(last)) { otpBox.classList.add("bad"); box.innerHTML = alertBox("err", "أدخل آخر 4 أرقام من رقم جوالك."); (otp.find(x => !x.value) || otp[0]).focus(); return; }
   const btn = $("#gateBtn"); busy(btn, true, "جارٍ التحقق…");
   try {
     const r = await api("jo_open", { p_id: id, p_last4: last });
@@ -1025,7 +1052,7 @@ function renderRejected() {
 })();
 </script>
 <script>
-document.getElementById('demoFill').onclick=()=>{const n=document.getElementById('nid'),l=document.getElementById('l4');if(!n||document.getElementById('v-gate').classList.contains('hidden')){try{sessionStorage.clear()}catch{}location.reload();return;}n.value='1000000001';l.value='1234';n.dispatchEvent(new Event('input'));l.dispatchEvent(new Event('input'));document.getElementById('gateBtn').focus();};
+document.getElementById('demoFill').onclick=()=>{if(document.getElementById('v-gate').classList.contains('hidden')){try{sessionStorage.clear()}catch{}location.reload();return;}window.fillGate('1000000001','1234');document.getElementById('gateBtn').focus();};
 document.getElementById('demoReset').onclick=()=>{window.JO_DEMO.reset();location.reload();};
 </script>
 </body>

@@ -34,8 +34,8 @@ a{color:var(--guard)}
 .top-in{max-width:1280px;margin:0 auto;padding:0 20px;height:62px;display:flex;align-items:center;gap:14px}
 .top .mark{width:34px;height:36px;flex:none;background:#fff;-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat}
 .login .mark{display:block;width:58px;height:62px;background:linear-gradient(150deg,var(--guard-2),var(--guard-deep) 70%);-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat}
-.top b{font-weight:700;font-size:15.5px;display:block;line-height:1.25}
-.top span.sub{font-size:12.5px;color:#AFC6DA;display:block;line-height:1.25}
+.top b{font-weight:700;font-size:15.5px;display:block;line-height:1.45}
+.top span.sub{font-size:12.5px;color:#AFC6DA;display:block;line-height:1.45}
 .top nav{display:flex;gap:2px;margin-inline-start:28px;height:100%}
 .top nav button{background:none;border:0;color:#C7D8E8;padding:0 14px;height:100%;cursor:pointer;font-weight:500;position:relative}
 .top nav button[aria-current="page"]{color:#fff;font-weight:600}
@@ -137,6 +137,7 @@ tbody tr:last-child td{border-bottom:0}
 .drawer h4{margin:0 0 8px;font-size:13.5px;color:var(--muted);font-weight:600}
 .kv{display:grid;grid-template-columns:130px 1fr;gap:6px 12px;margin:0;font-size:14px}
 .kv dt{color:var(--muted)} .kv dd{margin:0;font-weight:500;word-break:break-word}
+.kv dd.iban{white-space:nowrap;font-size:13px;letter-spacing:.2px}
 .drawer .acts{display:flex;flex-wrap:wrap;gap:8px}
 .modal{position:fixed;inset:0;z-index:52;display:grid;place-items:center;padding:20px}
 .modal .box{background:#fff;border-radius:16px;width:min(620px,100%);max-height:90vh;overflow:auto;padding:22px 24px;box-shadow:0 20px 60px rgba(16,32,47,.25)}
@@ -166,28 +167,78 @@ tbody tr:last-child td{border-bottom:0}
   .grid2{grid-template-columns:1fr}
   .top nav{margin-inline-start:6px}
   .top nav button{padding:0 9px}
-  .top .sub,.sync{display:none}
+  .top span.sub,.sync{display:none}
 }
-@media (max-width:640px){
-  .top-in{height:auto;flex-wrap:wrap;padding:10px 14px;gap:8px}
-  .top nav{order:3;width:100%;height:42px;overflow:auto}
+.only-mob{display:none}
+@media (max-width:720px){
+  main{padding:14px 12px 50px}
+  .top-in{height:auto;flex-wrap:wrap;padding:8px 12px 0;gap:6px 10px}
+  .top span.sub{display:none}
+  .top b{white-space:nowrap}
+  .top .acts{gap:6px}
+  .tbtn{width:38px;height:38px;padding:0;justify-content:center}
+  .tbtn .t{display:none}
+  .top nav{order:3;width:100%;margin:0;height:44px;display:grid;grid-template-columns:repeat(4,1fr)}
+  .top nav button{padding:0 4px;font-size:13.5px;white-space:nowrap}
+  .top nav button[aria-current="page"]::after{inset-inline:14px}
+  .only-desk{display:none !important}
+  .only-mob{display:block}
+  .card{padding:14px 14px;border-radius:12px}
   .fgrid{grid-template-columns:1fr}
-  .headline .big{font-size:32px}
+  .headline{gap:6px 10px}
+  .headline .big{font-size:34px}
+  .headline .dl{margin-inline-start:0;width:100%;text-align:center}
+  .legend{gap:6px 14px;font-size:13px}
+  .toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .toolbar .search{grid-column:1/-1;min-width:0;width:100%}
+  .toolbar .input{width:100%;min-width:0}
+  .toolbar .count{grid-column:1/-1;margin:0}
+  .linkbox{flex-direction:column}
+  .qr{flex-direction:column;align-items:flex-start}
+  .kv{grid-template-columns:104px 1fr}
+  .drawer header{padding:14px 16px 12px}
+  .drawer .body{padding:4px 16px 20px}
+  .modal{padding:10px;align-items:end}
+  .modal .box{padding:18px 16px;border-radius:16px}
+  .modal .row{flex-direction:column-reverse}
+  .modal .row .btn{width:100%}
 }
+/* mobile cards */
+.bcards{display:grid;gap:10px}
+.bcard{border:1px solid var(--line-soft);border-radius:12px;padding:12px 12px 10px}
+.bcard .h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+.bcard .h b{font-size:15px}
+.bcard .h span{color:var(--muted);font-size:13px}
+.bcard .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:8px;text-align:center}
+.bcard .nums div{background:var(--line-soft);border-radius:8px;padding:5px 2px;font-size:11.5px;color:var(--muted);line-height:1.35}
+.bcard .nums div b{display:block;font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+.ecards{display:grid;gap:8px}
+.ecard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:4px;cursor:pointer;text-align:start;width:100%;font:inherit;color:inherit}
+.ecard .r1{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.ecard .r1 b{font-size:15px;line-height:1.45}
+.ecard .r2{font-size:13px;color:var(--ink-2)}
+.ecard .r3{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted)}
+.ecard .r3 .num{color:var(--ink-2)}
+.sendlist tr{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:9px 0;border-bottom:1px solid var(--line-soft)}
+.sendlist td{border:0;padding:0}
+.sendlist td:first-child{flex:1 1 160px;min-width:0}
+.sendlist td:last-child{margin-inline-start:auto}
 </style>
 <style>
-.demo-strip{position:relative;z-index:5;background:#0D2B4B;color:#E6EEF6;font:500 13.5px/1.6 "IBM Plex Sans Arabic",system-ui,sans-serif}
-.demo-strip .demo-in{max-width:1280px;margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
-.demo-strip b{background:#C9A24B;color:#0D2B4B;border-radius:999px;padding:1px 10px;font-weight:700;font-size:12.5px}
-.demo-strip bdi{font-weight:700;color:#fff;letter-spacing:.5px}
-.demo-strip .demo-acts{display:flex;gap:8px;margin-inline-start:auto;flex-wrap:wrap}
-.demo-strip button,.demo-strip a{font:inherit;font-size:12.5px;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:3px 11px;cursor:pointer;text-decoration:none}
+.demo-strip{position:relative;z-index:5;background:#0D2B4B;color:#E6EEF6;font:500 13px/1.5 "IBM Plex Sans Arabic",system-ui,sans-serif}
+.demo-strip .demo-in{max-width:1280px;margin:0 auto;padding:7px 12px;display:flex;gap:6px;align-items:center;flex-wrap:nowrap}
+.demo-strip .chip{background:#C9A24B;color:#0D2B4B;border-radius:999px;padding:2px 10px;font-weight:700;font-size:12px;white-space:nowrap}
+.demo-strip .demo-acts{display:flex;gap:6px;margin-inline-start:auto;flex-wrap:nowrap}
+.demo-strip button,.demo-strip a{font:inherit;font-size:12.5px;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:7px;height:30px;padding:0 10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .demo-strip button:hover,.demo-strip a:hover{background:rgba(255,255,255,.2)}
+.demo-strip .ico{width:30px;padding:0;justify-content:center}
+.demo-note{margin:14px 0 0;padding:10px 12px;border-radius:10px;background:#F7EFD9;color:#5E4512;font:500 13.5px/1.7 "IBM Plex Sans Arabic",system-ui,sans-serif}
+.demo-note bdi{font-weight:700;letter-spacing:.5px;color:#0D2B4B}
 </style>
 </head>
 <body>
-<div class="demo-strip" role="note"><div class="demo-in"><b>نسخة تجريبية</b><span>بيانات وهمية للعرض. رمز دخول اللوحة <bdi>demo2026</bdi></span>
-<span class="demo-acts"><button type="button" id="demoLogin">دخول مباشر</button><a href="./">صفحة الموظف</a><button type="button" id="demoReset">إعادة ضبط التجربة</button></span></div></div>
+<div class="demo-strip" role="note"><div class="demo-in"><span class="chip">نسخة تجريبية</span>
+<span class="demo-acts"><button type="button" id="demoLogin">دخول مباشر</button><a href="./">صفحة الموظف</a><button type="button" class="ico" id="demoReset" aria-label="إعادة ضبط التجربة" title="إعادة ضبط التجربة"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10a6.5 6.5 0 1 0 2-4.7M3.5 3.5v3.8h3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></div></div>
 
 <div id="loginView" class="login">
   <form class="box" id="loginForm">
@@ -198,7 +249,7 @@ tbody tr:last-child td{border-bottom:0}
     <label class="f" for="code">رمز الدخول</label>
     <input class="input num" id="code" type="password" autocomplete="current-password" required>
     <button class="btn btn-primary" id="loginBtn" type="submit">دخول</button>
-  </form>
+<p class="demo-note">رمز الدخول التجريبي <bdi>demo2026</bdi> والبيانات وهمية.</p>  </form>
 </div>
 
 <div id="appView" class="hidden">
@@ -208,14 +259,14 @@ tbody tr:last-child td{border-bottom:0}
     <nav aria-label="الأقسام">
       <button data-tab="overview" aria-current="page">المتابعة</button>
       <button data-tab="people">الموظفون</button>
-      <button data-tab="send">إرسال الرابط</button>
+      <button data-tab="send">الإرسال</button>
       <button data-tab="settings">الإعدادات</button>
     </nav>
     <div class="acts">
       <span class="sync" id="sync"></span>
-      <button class="tbtn" id="refreshBtn" title="تحديث البيانات"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 10a6.5 6.5 0 1 1-2-4.7M16.5 3.5v3.8h-3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>تحديث</button>
-      <button class="tbtn" id="exportBtn"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0-4-4m4 4 4-4M4 16h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>تصدير Excel</button>
-      <button class="tbtn" id="logoutBtn">خروج</button>
+      <button class="tbtn" id="refreshBtn" title="تحديث البيانات" aria-label="تحديث"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 10a6.5 6.5 0 1 1-2-4.7M16.5 3.5v3.8h-3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="t">تحديث</span></button>
+      <button class="tbtn" id="exportBtn" aria-label="تصدير Excel"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0-4-4m4 4 4-4M4 16h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="t">تصدير Excel</span></button>
+      <button class="tbtn" id="logoutBtn" aria-label="خروج"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4H4.5A1.5 1.5 0 0 0 3 5.5v9A1.5 1.5 0 0 0 4.5 16H8M13 6.5 16.5 10 13 13.5M16.5 10H8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="t">خروج</span></button>
     </div>
   </div></header>
 
@@ -563,7 +614,8 @@ function renderOverview() {
           <div class="legend">${ORDER.map(k => { const v = k === "pend" ? c.pend + c.exp : c[k]; return `<span data-st="${k}"><i class="${ST[k].col}"></i>${ST[k].t} <b>${v}</b></span>`; }).join("")}</div>
         </div>
         <div class="card"><h2>حسب الفرع</h2>
-          <table class="btable"><thead><tr><th>الفرع</th><th class="n">الموظفون</th><th class="n">لم يفتح</th><th class="n">فتح ولم يرد</th><th class="n">وافق</th><th class="n">مكتمل</th><th class="n">اعتذر</th><th></th></tr></thead>
+          <div class="bcards only-mob">${branches.map(b => { const L = E.filter(e => e.branch === b), k = counts(L); return `<div class="bcard"><div class="h"><b>${esc(b)}</b><span>${L.length} موظفين</span></div>${stackBar(k, "mini")}<div class="nums"><div><b>${k.pend + k.exp}</b>لم يفتح</div><div><b>${k.view}</b>فتح</div><div><b>${k.done}</b>مكتمل</div><div><b>${k.rej}</b>اعتذر</div></div></div>`; }).join("")}</div>
+          <table class="btable only-desk"><thead><tr><th>الفرع</th><th class="n">الموظفون</th><th class="n">لم يفتح</th><th class="n">فتح ولم يرد</th><th class="n">وافق</th><th class="n">مكتمل</th><th class="n">اعتذر</th><th></th></tr></thead>
           <tbody>${branches.map(b => { const L = E.filter(e => e.branch === b), k = counts(L); return `<tr><td>${esc(b)}</td><td class="n">${L.length}</td><td class="n">${k.pend + k.exp}</td><td class="n">${k.view}</td><td class="n">${k.acc + k.done}</td><td class="n"><b>${k.done}</b></td><td class="n">${k.rej}</td><td>${stackBar(k, "mini")}</td></tr>`; }).join("")}</tbody></table>
         </div>
         ${Object.keys(reasons).length ? `<div class="card"><h2>أسباب الاعتذار</h2><table><tbody>${Object.entries(reasons).sort((a, b) => b[1] - a[1]).map(([r, n]) => `<tr><td>${esc(r)}</td><td class="n" style="width:60px"><b>${n}</b></td></tr>`).join("")}</tbody></table></div>` : ""}
@@ -595,7 +647,8 @@ function renderPeople() {
       <select class="input" id="fs"><option value="">كل الحالات</option>${["pend", "view", "acc", "done", "rej"].map(k => `<option value="${k}">${ST[k].t}</option>`).join("")}<option value="badphone">جوال غير مكتمل</option></select>
       <button class="btn btn-line" id="addBtn">إضافة موظف</button><button class="btn btn-line" id="impBtn">استيراد من Excel</button>
       <span class="count" id="cnt"></span></div>
-      <div class="etable"><table><thead><tr><th>#</th><th>الاسم</th><th>رقم الهوية</th><th>الجوال المسجل</th><th>الفرع</th><th>المسمى</th><th class="n">الراتب</th><th>الحالة</th><th>آخر نشاط</th></tr></thead><tbody id="rows"></tbody></table></div>`;
+      <div class="ecards only-mob" id="cards"></div>
+      <div class="etable only-desk"><table><thead><tr><th>#</th><th>الاسم</th><th>رقم الهوية</th><th>الجوال المسجل</th><th>الفرع</th><th>المسمى</th><th class="n">الراتب</th><th>الحالة</th><th>آخر نشاط</th></tr></thead><tbody id="rows"></tbody></table></div>`;
     $("#q").oninput = e => { UI.q = e.target.value; drawRows(); };
     $("#fb").onchange = e => { UI.branch = e.target.value; drawRows(); };
     $("#fs").onchange = e => { UI.state = e.target.value; drawRows(); };
@@ -613,10 +666,12 @@ function drawRows() {
     <td class="num">${esc(phone10(e.phone))}${phoneOk(e.phone) ? "" : ` <span class="flag">غير مكتمل</span>`}</td><td>${esc(e.branch)}</td><td>${esc(e.job_title)}</td><td class="n">${money(e.salary_total)}</td>
     <td>${badge(e)}</td><td style="color:var(--muted);font-size:13px">${(e.data_submitted_at || e.responded_at || e.last_viewed_at) ? esc(ago(e.data_submitted_at || e.responded_at || e.last_viewed_at)) : "—"}</td></tr>`).join("") || `<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:30px">لا يوجد موظفون بهذه التصفية.</td></tr>`;
   $("#rows").querySelectorAll("tr[data-id]").forEach(tr => tr.onclick = () => drawer(+tr.dataset.id));
+  $("#cards").innerHTML = L.map(e => `<button type="button" class="ecard" data-id="${e.id}"><span class="r1"><b>${esc(e.full_name)}</b>${badge(e)}</span><span class="r2">${esc(e.branch)} — ${esc(e.job_title)}</span><span class="r3"><span class="num">${esc(e.national_id)}</span><span>${money(e.salary_total)} ريال${phoneOk(e.phone) ? "" : ` <span class="flag">جوال غير مكتمل</span>`}</span></span></button>`).join("") || `<p style="text-align:center;color:var(--muted);padding:24px">لا يوجد موظفون بهذه التصفية.</p>`;
+  $("#cards").querySelectorAll(".ecard").forEach(c => c.onclick = () => drawer(+c.dataset.id));
 }
 
 /* ===== drawer ===== */
-function kv(rows) { return `<dl class="kv">${rows.filter(Boolean).map(([k, v, ltr]) => `<dt>${k}</dt><dd${ltr ? ' dir="ltr" style="text-align:right"' : ""}>${v === null || v === undefined || v === "" ? "—" : esc(v)}</dd>`).join("")}</dl>`; }
+function kv(rows) { return `<dl class="kv">${rows.filter(Boolean).map(([k, v, ltr]) => `<dt>${k}</dt><dd${k === "الآيبان" ? ' class="iban"' : ""}${ltr ? ' dir="ltr" style="text-align:right"' : ""}>${v === null || v === undefined || v === "" ? "—" : esc(v)}</dd>`).join("")}</dl>`; }
 const H_MONTHS = ["محرم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"];
 const G_MONTHS = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
 const dobText = d => { if (!d || !d.dob) return ""; const [y, m, dd] = d.dob.split("-").map(Number); return `${dd} ${(d.dob_calendar === "hijri" ? H_MONTHS : G_MONTHS)[m - 1]} ${y}${d.dob_calendar === "hijri" ? "هـ" : "م"}`; };
